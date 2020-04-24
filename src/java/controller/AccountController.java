@@ -21,17 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/account")
 public class AccountController {
-    
+
     AccountDao accountDao;
         public void setAccountDao(AccountDao accountDao) {
         this.accountDao = accountDao;
     }
-        
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public BankResponse createAccount(@RequestBody Account newAccount) {
-        
+
         BankResponse response=new BankResponse();
-        
+
         if(accountDao.checkAadhar(newAccount.getAadhar())==0){
                 accountDao.create(newAccount);
                 response.setAccountDetails(newAccount);
@@ -39,18 +39,17 @@ public class AccountController {
             }
          else
                response.setStatus(400);
-
-        
+      // Hello world
         return response;
     }
-        
-        
+
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public List<Account> getAllCustomer() {
         List<Account> list = accountDao.readAll();
         return list;
-    }  
-    
+    }
+
     @RequestMapping(value = "/checkAadhar", method = RequestMethod.GET)
     public int getCheckAadhar() {
         int ac = accountDao.checkAadhar("254125635876");
